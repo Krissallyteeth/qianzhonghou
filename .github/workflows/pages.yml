@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - claude/link-request-LIInw
   workflow_dispatch:
 
 permissions:
