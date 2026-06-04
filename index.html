@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目投资费用（预算或已发生）划期</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Microsoft YaHei", "微软雅黑", "SimSun", sans-serif;
+  background: #f0f2f5;
+  padding: 24px;
+  color: #222;
+}
+
+h1.page-title {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 0;
+}
+
+.tab-btn {
+  padding: 10px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+  background: #d0d7e2;
+  color: #555;
+  transition: background 0.2s, color 0.2s;
+  font-family: inherit;
+}
+
+.tab-btn.active {
+  background: #ffffff;
+  color: #1a3c6b;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
+}
+
+.tab-btn:hover:not(.active) {
+  background: #bac3d1;
+  color: #333;
+}
+
+.tab-content {
+  display: none;
+  background: #fff;
+  border-radius: 0 8px 8px 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  overflow-x: auto;
+  padding: 0;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Table */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 900px;
+  font-size: 11px;
+}
+
+td {
+  border: 1px solid #aab3c4;
+  padding: 4px 6px;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Notes row */
+.row-notes {
+  font-size: 11px;
+  text-align: left;
+  vertical-align: middle;
+  background: #f7f9fc;
+  color: #444;
+  padding: 10px 14px;
+  white-space: pre-line;
+  line-height: 1.8;
+}
+
+/* Title row */
+.row-title {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  background: #1a3c6b;
+  color: #fff;
+  padding: 10px;
+  letter-spacing: 1px;
+}
+
+/* Header row */
+.row-header {
+  font-size: 13px;
+  font-weight: 700;
+  background: #2563a8;
+  color: #fff;
+  text-align: center;
+}
+
+/* Hierarchy cells (C1-C6) */
+.hier {
+  font-weight: 700;
+  font-size: 11px;
+  background: #eef2f9;
+}
+
+/* Period cells */
+.period {
+  font-weight: 700;
+  font-size: 13px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 4px;
+  padding: 8px 4px;
+}
+
+.period-pre  { background: #e6f4ea; color: #1e7e34; }
+.period-mid  { background: #e3edf8; color: #1a3c6b; }
+.period-post { background: #fff3e0; color: #b35a00; }
+
+/* Fee category */
+.fee-cat {
+  font-size: 11px;
+  font-weight: 500;
+  text-align: left;
+  padding: 5px 8px;
+}
+
+/* Fee range */
+.fee-range {
+  font-size: 9.5px;
+  text-align: left;
+  padding: 4px 8px;
+  color: #444;
+  line-height: 1.6;
+  white-space: normal;
+}
+
+/* Note inside fee-cat (for budget items) */
+.budget-note {
+  font-size: 9.5px;
+  color: #888;
+  font-weight: normal;
+}
+
+/* Footer */
+.row-footer {
+  font-size: 11px;
+  font-weight: 700;
+  background: #f7f9fc;
+  color: #555;
+  text-align: center;
+  padding: 8px;
+}
+
+/* Subtler alternating for fee rows */
+tr:nth-child(even) td.fee-cat,
+tr:nth-child(even) td.fee-range {
+  background: #fafbfd;
+}
+
+/* Column widths (relative) */
+col.c1 { width: 4.8%; }
+col.c2 { width: 4.8%; }
+col.c3 { width: 2.8%; }
+col.c4 { width: 6.8%; }
+col.c5 { width: 3.5%; }
+col.c6 { width: 13.5%; }
+col.c7 { width: 27%; }
+col.c8 { width: 36.8%; }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">项目投资费用（预算或已发生）前－中－后划期</h1>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('jianshe', this)">建设类</button>
+  <button class="tab-btn" onclick="showTab('feijian', this)">非建设类</button>
+</div>
+
+<!-- ===== 建设类 ===== -->
+<div id="jianshe" class="tab-content active">
+<table>
+  <colgroup>
+    <col class="c1"><col class="c2"><col class="c3"><col class="c4">
+    <col class="c5"><col class="c6"><col class="c7"><col class="c8">
+  </colgroup>
+  <tbody>
+    <!-- Row 1: Notes -->
+    <tr>
+      <td colspan="8" class="row-notes">1、项目费用划分为前期、中期、后期，前期系指项目达到收档要求所发生的项目投入费用，中期系指项目完整建设期（施工开工至整体验收或中交）期间，后期系指从项目整体验收或中交后至正式生产（非生产性项目为正式投入使用）3~6个月。
+2、从建设管理实务角度出发，遵循完整建设投资原则及完整造价构成原则，将项目发生所有投资划分前、中、后期，与未来投资节奏调控、项管里程展示、预算筹措调拨等均相关。
+3、将所有投资划分前、中、后期，不影响项目会计核算原则、不影响财务资金预算原则。</td>
+    </tr>
+    <!-- Row 2: Title -->
+    <tr>
+      <td colspan="8" class="row-title">建设类项目投资费用（预算或已发生）划期</td>
+    </tr>
+    <!-- Row 3: Header -->
+    <tr>
+      <td colspan="6" class="row-header">投资分类</td>
+      <td class="row-header">费用类目</td>
+      <td class="row-header">费用范围</td>
+    </tr>
+    <!-- Rows 4-8: 前期 -->
+    <tr>
+      <td rowspan="41" class="hier">建设项目总投资</td>
+      <td rowspan="40" class="hier">固定资产投资（工程造价）</td>
+      <td rowspan="40" class="hier">建设投资</td>
+      <td rowspan="5"  class="hier">项目建设其他费</td>
+      <td rowspan="5"  class="period period-pre">前</td>
+      <td rowspan="5"  class="hier">与项目建设有关的其他费用</td>
+      <td class="fee-cat">可行性研究费</td>
+      <td class="fee-range">指用于进行市场调研，建设方案、技术方案、生产经营方案的论证、编制、评审费用，以及为此发生的相关出差、会务、第三方顾问等费用。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">研究试验费</td>
+      <td class="fee-range">指用于为建设项目提供或验证设计数据、资料等进行必要研究验证、试验的费用，包括新产品试制费、中间试验费、重要科研补助开支等。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">勘察设计费</td>
+      <td class="fee-range">指用于进行工程水文资质勘察、工程设计所发生的费用，包括工程勘察、初步设计、扩初设计、详细设计、设计模型制作等费用。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">环境影响评价费</td>
+      <td class="fee-range">指用于进行项目环境污染或影响调查、评估、论证等而发生的费用。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">劳动安全卫生评价费</td>
+      <td class="fee-range">指用于进行项目劳动安全卫生的调查、分析、提供方案等而发生的费用。</td>
+    </tr>
+    <!-- Rows 9-24: 中期 项目工程费用 -->
+    <tr>
+      <td rowspan="16" class="hier">项目工程费用</td>
+      <td rowspan="32" class="period period-mid">中</td>
+      <td rowspan="5"  class="hier">建筑安装工程</td>
+      <td class="fee-cat">建筑工程费</td>
+      <td class="fee-range">土建与园林、房建及装修、钢结构及构筑物、公路铁路桥梁及市政等建筑工程费。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">安装工程费</td>
+      <td class="fee-range">生产、动力、运输、起重、传动及医疗、试验等所需的各种机械设备、管道、电气、仪表、电信、消防、给排水、暖通、防腐保温等安装工程费。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">机械设备采购</td>
+      <td class="fee-range">建设范围内的各类动、静机械设备、标准设备、非标准设备，包括机械设备的采购费、运杂费、进口从属费等。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">工程材料采购</td>
+      <td class="fee-range">建设范围内所需各类材料的采购，包括成品材料、半成品材料的采购及运杂费等。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">施工机械租赁及使用费</td>
+      <td class="fee-range">用于工程建设中的工程机械租赁费、进出场费转移费、使用费（机上人工费）及维修费等。</td>
+    </tr>
+    <tr>
+      <td rowspan="5"  class="hier">设备工器具购置</td>
+      <td class="fee-cat">检测、试验设备等购置费</td>
+      <td rowspan="5"  class="fee-range">用于保证初期生产必须购置的、且达到固定资产标准的设备、仪表、工卡模具、器具、生产家具、备品备件等。</td>
+    </tr>
+    <tr><td class="fee-cat">生产用工具、刀具、模具等购置费</td></tr>
+    <tr><td class="fee-cat">检测、试验用器具及耗材等购置费</td></tr>
+    <tr><td class="fee-cat">生产用家具、生产用电脑设备等购置费</td></tr>
+    <tr><td class="fee-cat">其他必要备品备件等购置费</td></tr>
+    <tr>
+      <td class="hier">系统软件开发</td>
+      <td class="fee-cat">系统软件工程费</td>
+      <td class="fee-range">指开发或购买系统软件所发生的费用，包含硬件费用（如服务器、存储设备、网络设备等），系统软件开发与上线等。</td>
+    </tr>
+    <tr>
+      <td class="hier">运输工具购置</td>
+      <td class="fee-cat">运输工具购置费</td>
+      <td class="fee-range">指为项目活动所持有的各种运输工具，如汽车、货车、列车、船舶等。</td>
+    </tr>
+    <tr>
+      <td class="hier">股权投资</td>
+      <td class="fee-cat">股权投资</td>
+      <td class="fee-range">指通过投资取得被投资单位的股权/股份，如：股票、股权等。</td>
+    </tr>
+    <tr>
+      <td class="hier">债权投资</td>
+      <td class="fee-cat">债权投资</td>
+      <td class="fee-range">指通过投资取得被投资单位的债权，如：国债、地方债、企业债券等。</td>
+    </tr>
+    <tr>
+      <td class="hier">其他金融工具投资</td>
+      <td class="fee-cat">其他金融工具投资</td>
+      <td class="fee-range">指通过投资取得的非股权、非债权类投资，如：基金、结构性存款、理财产品等。</td>
+    </tr>
+    <tr>
+      <td class="hier">市场营销成本</td>
+      <td class="fee-cat">市场营销成本</td>
+      <td class="fee-range">指市场营销项目发生的购买原材料、商品、渠道建设、渠道拓展、广告宣传、产品促销、销售折价、销售返利等费用。</td>
+    </tr>
+    <!-- Rows 25-37: 中期 项目建设其他费 -->
+    <tr>
+      <td rowspan="13" class="hier">项目建设其他费</td>
+      <td rowspan="4"  class="hier">建设用地</td>
+      <td class="fee-cat">征地补偿费</td>
+      <td class="fee-range">包括土地补偿费、青苗补偿费、地上附着物补偿费、安置补偿费、耕地占用税、土地管理费、取得土地其他相关费用及税（根据各地要求）。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">拆迁补偿费</td>
+      <td class="fee-range">包括拆迁补偿费、搬迁或安置补助费、停产停业综合补助费、拆迁其他相关补偿费（根据各地要求）。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">土地出让金</td>
+      <td class="fee-range">根据各地规定。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">土地转让费</td>
+      <td class="fee-range">包括评估费、契税、一次性或按年缴纳的土地使用费等。</td>
+    </tr>
+    <tr>
+      <td rowspan="9"  class="hier">与项目建设有关的其他费用</td>
+      <td class="fee-cat">场地准备费及临时设施费</td>
+      <td class="fee-range">指为达到开工条件而投入的费用，包括场地三通一平、工程管理部门的现场办公与生活设施的建设、维修、租赁等费用。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">工程保险费</td>
+      <td class="fee-range">指建设单位为转移工程项目建设的意外风险而投保的费用，包括建筑安装工程一切险、引进设备财产保险、人身意外伤害险等。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">特殊设备安全监检费</td>
+      <td class="fee-range">指按要求用于安全监察部门规定的特殊设备和设施安全检验收取的费用，包括锅炉、压力容器、压力管道、消防设备、燃气设备、电梯、塔吊等设备设施的安监费。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">市政公共设施费</td>
+      <td class="fee-range">指项目使用市政公用设施而按规定需缴纳的市政公用设施建设配套费用，如绿化工程补偿费等。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">工程监理费</td>
+      <td class="fee-range">指发生于建设期的工程监理费用。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">招标代理费</td>
+      <td class="fee-range">指发生于招标采购中的代理服务费，包括采购工程、采购物资、采购设备、采购服务等的代理费用。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">造价咨询费</td>
+      <td class="fee-range">指发生于项目全过程的造价咨询服务费用。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">建设管理费</td>
+      <td class="fee-range">建设期内项目管理费，主要系工程管理部门的工资、补贴、公积金、福利、社会保险、办公、差旅交通、差旅食宿、劳保、工具用具使用、业务招待、交通工具购置及使用费维修费、场地或房屋租赁、会务费等。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">引进技术和引进设备其他费</td>
+      <td class="fee-range">指为引进技术和设备发生的（未计入设备购置费中的）费用，包括引进项目的图纸资料翻译费、复制费、备品备件测绘费、出国人员费用、来华人员费用、银行相关的担保费等。</td>
+    </tr>
+    <!-- Rows 38-39: 预备费 -->
+    <tr>
+      <td rowspan="2" class="hier">预备费</td>
+      <td class="hier">基本预备费</td>
+      <td class="fee-cat budget-note">（预算可单列，实际发生不单列）</td>
+      <td class="fee-range">指项目建设不可预见费。</td>
+    </tr>
+    <tr>
+      <td class="hier">涨价预备费</td>
+      <td class="fee-cat budget-note">（预算可单列，实际发生不单列）</td>
+      <td class="fee-range">指价格变动不可预见费，包括人工、设备、材料、施工机械、建安工程费及其他费用调整、利率调整、汇率调整等增加费。</td>
+    </tr>
+    <!-- Row 40: 建设期利息 -->
+    <tr>
+      <td class="hier">建设期利息</td>
+      <td class="hier">建设期利息</td>
+      <td class="fee-cat budget-note">（预算可单列，实际发生不单列）</td>
+      <td class="fee-range">指建设期内为项目筹措资金的融资费用、债务资金利息。</td>
+    </tr>
+    <!-- Rows 41-43: 后期 -->
+    <tr>
+      <td rowspan="3" class="hier">项目建设其他费</td>
+      <td rowspan="4" class="period period-post">后</td>
+      <td rowspan="3" class="hier">与未来生产经营有关的其他费用</td>
+      <td class="fee-cat">联合试运转费</td>
+      <td class="fee-range">指交付生产前按设计文件规定的质量标准和技术要求，对整个生产线或装置进行负荷联合试运转所发生的费用支出，包括所需的原材料、燃料及动力、低值易耗品、其他物料消耗、工具使用费、机械使用费、保险金、相关参与方人员工资、专家指导费等。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">生产准备及开办费</td>
+      <td class="fee-range">指为保证项目正常生产经营，在建设期内提前规划而发生的费用，包括人员培训费、提前进厂费、生产初期第一套不够固定资产标准的生产工具、器具、用具购置费等。</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">专利及专有技术使用费</td>
+      <td class="fee-range">包括用于生产经营的国外设计及技术资料费、引进专利及专利使用费、技术保密费；国内专利使用费；商标权、商誉、特许经营权费；特定行业经营许可资质或认证取证费用等。</td>
+    </tr>
+    <!-- Row 44: 铺底流动资金 -->
+    <tr>
+      <td colspan="3" class="hier">铺底流动资金</td>
+      <td class="hier">铺底流动资金</td>
+      <td class="fee-cat budget-note">（预算可单列，实际发生不单列）</td>
+      <td class="fee-range">指项目在启动经营时必须由建设单位自有资金安排到位的最低流动资金量（通过银行流动资金贷款、商业信用方式取得的流动性资金不在此范围）。</td>
+    </tr>
+    <!-- Row 45: Footer -->
+    <tr>
+      <td colspan="8" class="row-footer">本表用于指导项目的预算编制与分解、以及规定已发生费用补登时的投资划期</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ===== 非建设类 ===== -->
+<div id="feijian" class="tab-content">
+<table>
+  <colgroup>
+    <col style="width:5%"><col style="width:7%"><col style="width:9%">
+    <col style="width:3.5%"><col style="width:14%"><col style="width:28%"><col style="width:33.5%">
+  </colgroup>
+  <tbody>
+    <!-- Row 1: Notes -->
+    <tr>
+      <td colspan="7" class="row-notes">1、项目费用划分为前期、中期、后期，前期系指项目达到收档要求所发生的项目投入费用，中期系指项目完整建设期（施工开工至整体验收或中交）期间，后期系指从项目整体验收或中交后至正式生产（非生产性项目为正式投入使用）3~6个月。
+2、从建设管理实务角度出发，遵循完整建设投资原则及完整造价构成原则，将项目发生所有投资划分前、中、后期，与未来投资节奏调控、项管里程展示、预算筹措调拨等均相关。
+3、将所有投资划分前、中、后期，不影响项目会计核算原则、不影响财务资金预算原则。</td>
+    </tr>
+    <!-- Row 2: Title -->
+    <tr>
+      <td colspan="7" class="row-title">非建设类项目投资费用（预算或已发生）划期</td>
+    </tr>
+    <!-- Row 3: Header -->
+    <tr>
+      <td colspan="5" class="row-header">投资分类</td>
+      <td class="row-header">费用类目</td>
+      <td class="row-header">费用范围</td>
+    </tr>
+    <!-- Rows 4-6: 前期 -->
+    <tr>
+      <td rowspan="27" class="hier">项目总投资</td>
+      <td rowspan="26" class="hier">固定资产投资</td>
+      <td rowspan="3"  class="hier">项目研论投入</td>
+      <td rowspan="3"  class="period period-pre">前</td>
+      <td rowspan="3"  class="hier">项目调研策划</td>
+      <td class="fee-cat">市场 / 行业调研费</td>
+      <td class="fee-range">行业分析、竞品调研、客户 / 需求画像、方案论证、差旅会务、第三方顾问等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">方案设计、论证费</td>
+      <td class="fee-range">项目方案、流程设计、SOP 编制、架构设计、原型设计、评审费等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">合规 / 资质费</td>
+      <td class="fee-range">法务审核、风险评估、合规诊断、资质办理、认证取证、专利查新等</td>
+    </tr>
+    <!-- Rows 7-22: 中期 -->
+    <tr>
+      <td rowspan="16" class="hier">项目开发投入</td>
+      <td rowspan="16" class="period period-mid">中</td>
+      <td rowspan="3"  class="hier">供应链、客户/渠道开发</td>
+      <td class="fee-cat">供应商筛选、供应链开发费</td>
+      <td class="fee-range">供应链方案、供应商尽调、资质审核、样品检测、比价 / 招标评审、招商策划等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">客户/渠道开发费</td>
+      <td class="fee-range">市场推广或调研、谈判与签约、培训与支持、售后体系；渠道拓展与管理、激励与补贴、渠道培训等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">合同筹备费</td>
+      <td class="fee-range">范式合同、招标代理、法务代理、合作洽谈等</td>
+    </tr>
+    <tr>
+      <td rowspan="2" class="hier">资源筹备</td>
+      <td class="fee-cat">人力筹备费</td>
+      <td class="fee-range">开发方选聘、招聘方案、岗位设计、招聘渠道开通、测评工具等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">资源配置费</td>
+      <td class="fee-range">开发环境、工具 / 软件采购、云资源 / 设备预开通、物料筹备等</td>
+    </tr>
+    <tr>
+      <td rowspan="6" class="hier">开发其他投入</td>
+      <td class="fee-cat">外包 / 专家费</td>
+      <td class="fee-range">开发管理中发生的除供应链、客户/渠道开发以外的外包服务费、专家咨询费、技术指导、驻场服务等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">采购执行费</td>
+      <td class="fee-range">物资 / 设备 / 办公用品采购、运输、安装调试、仓储物流等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">销售执行费</td>
+      <td class="fee-range">客户开发、商务接待、渠道搭建、促销活动、广告投放、推广物料等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">技术实施费</td>
+      <td class="fee-range">研发开发、测试部署、技术攻关、系统升级、数据迁移等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">服务执行费</td>
+      <td class="fee-range">后勤保障、售后维修、设备维保、咨询服务、流程优化等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">其他执行费</td>
+      <td class="fee-range">市场推广、品牌运营、合作落地、应急 / 公益执行、跨部门协同等</td>
+    </tr>
+    <tr>
+      <td rowspan="3" class="hier">开发管理</td>
+      <td class="fee-cat">人员薪酬费</td>
+      <td class="fee-range">项目开发期管理人员工资、奖金、社保、公积金、补贴、加班费等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">办公使用费</td>
+      <td class="fee-range">场地租赁、水电物业、办公耗材、文印快递、资产运维等</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">差旅交通费</td>
+      <td class="fee-range">项目差旅、交通住宿、会议服务、外勤费用等</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="hier">融资费用</td>
+      <td class="fee-range" colspan="1" style="text-align:left">项目融资成本、债务利息等（预算可单列，实际发生不单列）</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="hier">其他预备费</td>
+      <td class="fee-range" colspan="1" style="text-align:left">项目不可预见费（预算可单列，实际发生不单列）</td>
+    </tr>
+    <!-- Rows 23-29: 后期 -->
+    <tr>
+      <td rowspan="7" class="hier">试运营及转经营前其他投入</td>
+      <td rowspan="7" class="period period-post">后</td>
+      <td rowspan="2" class="hier">验收结算</td>
+      <td class="fee-cat">验收评估费</td>
+      <td class="fee-range">项目验收、成果评估、满意度调查、考核整改、验收评审</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">结算费</td>
+      <td class="fee-range">对账开票、尾款支付、佣金结算、渠道 / 供方对账</td>
+    </tr>
+    <tr>
+      <td rowspan="2" class="hier">与未来经营有关的运维保障</td>
+      <td class="fee-cat">运维服务费</td>
+      <td class="fee-range">系统运维、安全巡检、数据备份、设备维保、质保服务</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">客户 / 用户维护费</td>
+      <td class="fee-range">客情维护、用户留存、回访跟进、续费 / 复购对接</td>
+    </tr>
+    <tr>
+      <td rowspan="2" class="hier">试运营的复盘优化</td>
+      <td class="fee-cat">数据复盘费</td>
+      <td class="fee-range">数据分析、复盘会议、报表制作、效果评估</td>
+    </tr>
+    <tr>
+      <td class="fee-cat">优化改进费</td>
+      <td class="fee-range">流程优化、bug 修复、迭代升级、整改闭环</td>
+    </tr>
+    <tr>
+      <td class="hier">档案管理</td>
+      <td class="fee-cat">归档费</td>
+      <td class="fee-range">合同 / 资料 / 工单 / 项目总结归档、台账维护、案例沉淀</td>
+    </tr>
+    <!-- Row 30: 铺底流动资金 -->
+    <tr>
+      <td colspan="2" class="hier">铺底流动资金</td>
+      <td class="hier">后</td>
+      <td colspan="2" class="hier">铺底流动资金</td>
+      <td class="fee-range">项目启动必备自有流动资金（贷款、信用不计入）</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
