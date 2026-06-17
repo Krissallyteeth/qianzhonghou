@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目成本科目及释义</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Microsoft YaHei", "微软雅黑", "SimSun", sans-serif;
+  background: #f0f2f5;
+  padding: 24px;
+  color: #222;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+h1.page-title {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.tabs { display: flex; gap: 4px; margin-bottom: 0; }
+.tab-btn {
+  padding: 10px 32px; font-size: 15px; font-weight: 600; border: none;
+  cursor: pointer; border-radius: 8px 8px 0 0; background: #d0d7e2; color: #555;
+  transition: background 0.2s, color 0.2s; font-family: inherit;
+}
+.tab-btn.active { background: #fff; color: #1a3c6b; box-shadow: 0 -2px 6px rgba(0,0,0,0.08); }
+.tab-btn:hover:not(.active) { background: #bac3d1; color: #333; }
+.tab-content {
+  display: none; background: #fff; border-radius: 0 8px 8px 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1); overflow-x: auto; padding: 0;
+}
+.tab-content.active { display: block; }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 12px; table-layout: fixed; }
+td { border: 1px solid #aab3c4; padding: 6px 8px; vertical-align: middle; text-align: center; line-height: 1.6; }
+.row-title {
+  font-size: 16px; font-weight: 700; text-align: center; background: #1a3c6b;
+  color: #fff; padding: 10px; letter-spacing: 1px;
+}
+.row-header { font-size: 13px; font-weight: 700; background: #2563a8; color: #fff; text-align: center; }
+.cat1 { font-weight: 700; font-size: 13px; background: #eef2f9; color: #1a3c6b; }
+.cat2 { font-weight: 600; font-size: 12px; background: #f7f9fc; text-align: center; word-break: keep-all; }
+.explain {
+  font-size: 11.5px; text-align: left; padding: 6px 12px; color: #444;
+  line-height: 1.8; white-space: pre-line; word-break: normal; overflow-wrap: break-word;
+}
+tr:nth-child(even) td.explain { background: #fafbfd; }
+col.c1 { width: 9%; }
+col.c2 { width: 14%; }
+col.c3 { width: 77%; }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">项目成本科目及释义</h1>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('jianshe', this)">建设类项目</button>
+  <button class="tab-btn" onclick="showTab('feijian', this)">非建设类项目</button>
+</div>
+
+<div id="jianshe" class="tab-content active">
+<table>
+  <colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+  <tbody>
+    <tr><td colspan="3" class="row-title">项目成本科目及释义（<span style="color:#00B0F0">建设类项目</span>）</td></tr>
+    <tr>
+      <td colspan="2" class="row-header">成本项目类</td>
+      <td rowspan="2" class="row-header">解释</td>
+    </tr>
+    <tr>
+      <td class="row-header">一级科目</td>
+      <td class="row-header">二级科目</td>
+    </tr>
+    <tr><td rowspan="9" class="cat1">项目成本</td><td class="cat2">土建工程</td><td class="explain">指土木建筑工程，含土木工程和建筑工程。包括地上、地下的房屋、道路、铁路、给排水、防护等工程范围内的设施与场所内的建筑物、构筑物的建设，土石方工程、桩与地基工程、主体工程、钢结构工程、零星工程、人防工程、基坑支护工程等。</td></tr>
+    <tr><td class="cat2">安装工程</td><td class="explain">指各种需要<span style="color:#FF0000">安装</span>的电力、钢结构加工工程，电梯工程、消防安装、铝合金门窗安装工程、入口铁门、消防门、拱门制作安装工程等。工作台、梯子的装设工程，管线敷设，以及绝缘、刷油、保温所需的费用。</td></tr>
+    <tr><td class="cat2">装修工程</td><td class="explain">包含办公场所装修、改造和翻新，包含但不限于工程、水电改造、空调及消防改造、空气治理、开荒保洁等；家具更换购买，格局改造、办公室VR建设费用等一系列费用。</td></tr>
+    <tr><td class="cat2">机械设备</td><td class="explain">用于生产、服务等各类<span style="color:#FF0000">设备</span>，包括机械设备的购置、运输、安装、拆卸、调试等费用。</td></tr>
+    <tr><td class="cat2">工程材料</td><td class="explain">指用于建筑和安装工程、装修工程所需的各种<span style="color:#FF0000">甲供</span>材料费用，包括主要材料和辅助材料。主要材料是指构成建筑物或建筑物的基础、承重构件、非承重构件和屋面的材料，如钢材、水泥、混凝土、木材、砖瓦、砂石等。辅助材料是指为施工所必需的，但比重较小的一些材料，如周转材料（钢管、模板等）、其他材料（涂料、油漆等）。</td></tr>
+    <tr><td class="cat2">设计、咨询、测绘</td><td class="explain">指对项目发生<span style="color:#FF0000">设计</span>、咨询、测绘所发生的费用。</td></tr>
+    <tr><td class="cat2">技术服务</td><td class="explain">指企业或个人为某个特定项目提供技术支持或服务所收取的费用。</td></tr>
+    <tr><td class="cat2">土地费用</td><td class="explain">指为取得项目用地使用权而发生的费用。它包括土地出让金、土地征用费、城市建设配套费用、拆迁安置补偿费等。</td></tr>
+    <tr><td class="cat2">其他</td><td class="explain">指其他项目成本。</td></tr>
+    <tr><td rowspan="13" class="cat1">项目费用</td><td class="cat2">项目管理费</td><td class="explain">是指组织和管理项目活动而发生的各种费用。</td></tr>
+    <tr><td class="cat2">人工费</td><td class="explain"><span style="color:#FF0000">项目团队成员</span>工资、社会保险费、住房公积金、福利费<span style="color:#FF0000">。不含</span>项目奖<span style="color:#FF0000">。</span></td></tr>
+    <tr><td class="cat2">项目奖</td><td class="explain"><span style="color:#FF0000">项目团队成员的奖金。</span></td></tr>
+    <tr><td class="cat2">办公费</td><td class="explain">包含办公用品费用、员工交通费（除差旅、会务、探亲、招待、培训）、办公耗材（例如笔记本、碳粉、墨盒等）、开办、工具书及书报费、印刷费、搬家费、办公坏境费（例如办公室VR建设，办公摆件物件）、饮水费、自购笔记本。</td></tr>
+    <tr><td class="cat2">差旅费</td><td class="explain">公司员工出差期间因办理<span style="color:#FF0000">项目</span>公务而产生的交通费 、住宿费、伙食费和其他杂费等各项费用，其中：
+   ①交通费：指员工因公到常驻地以外地区出差乘坐火车、轮船、飞机等交通工具所发生的费用，及员工因公出差期间市内活动发生的交通费用。   ②住宿费：指员工因公出差期间入住酒店发生的费用。③伙食费：指员工因公出差期间的伙食费。④其他费用：指员工因公出差期间发生的其他合理费用等。</td></tr>
+    <tr><td class="cat2">培训费</td><td class="explain">员工<span style="color:#FF0000">项目</span>培训相关支出，包括租用培训场所费用、培训资料费、交通费、茶水费、餐费、住宿费，外聘讲师费，课程费等。</td></tr>
+    <tr><td class="cat2">公共事务费</td><td class="explain">是指公司日常工作中发生的、开展<span style="color:#FF0000">项目</span>活动需要而产生的接待费用。包含: ①宴请、娱乐或接待客人工作餐的开支；②赠送客人纪念品、礼品的开支；③员工和外部人员到旅游景点参观，门票费、交通费、各类杂费开支；④外部业务关系人员到公司出差、调研、做项目，发生的差旅费、住宿费、交通费等。</td></tr>
+    <tr><td class="cat2">租赁费</td><td class="explain">包含①<span style="color:#FF0000">项目</span>办公场所租赁费：办公场所的租金费用（含税）、外租食堂场地、仓库场地、档案室场地费用；②宿舍租赁：指销售部门员工宿舍的租赁费用，包含公摊能耗费、外租食堂场所的物业费等。不含车辆租赁。</td></tr>
+    <tr><td class="cat2">会议费</td><td class="explain">指为执行项目工作或开展项目业务活动所召开的会议(可提供会议审批文件、会议通知、会议纪要、实际参会人员签到表或定点会议场所等会议服务单位提供的费用原始明细单据、电子结算单等凭证)所发生的会议场地费、投影使用费、餐饮费、茶点费、交通费、住宿费等一切合理费用。</td></tr>
+    <tr><td class="cat2">折旧与摊销</td><td class="explain">使用的固定资产折旧和无形资产摊销、使用权资产折旧。</td></tr>
+    <tr><td class="cat2">财务费用</td><td class="explain">指企业为筹集项目所需资金等而发生的费用。包含利息收入、利息支出、手续费等。</td></tr>
+    <tr><td class="cat2">税费</td><td class="explain">是指公司为<span style="color:#FF0000">项目</span>缴纳的各项税费。</td></tr>
+    <tr><td class="cat2">其他</td><td class="explain">其他项目管理费。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div id="feijian" class="tab-content ">
+<table>
+  <colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+  <tbody>
+    <tr><td colspan="3" class="row-title">项目成本科目及释义（<span style="color:#00B0F0">非建设类项目</span>）</td></tr>
+    <tr>
+      <td colspan="2" class="row-header">成本项目类</td>
+      <td rowspan="2" class="row-header">解释</td>
+    </tr>
+    <tr>
+      <td class="row-header">一级科目</td>
+      <td class="row-header">二级科目</td>
+    </tr>
+    <tr><td rowspan="16" class="cat1">项目成本</td><td class="cat2">土建工程</td><td class="explain">指土木建筑工程，含土木工程和建筑工程。包括地上、地下的房屋、道路、铁路、给排水、防护等工程范围内的设施与场所内的建筑物、构筑物的建设，土石方工程、桩与地基工程、主体工程、钢结构工程、零星工程、人防工程、基坑支护工程等。</td></tr>
+    <tr><td class="cat2">安装工程</td><td class="explain">指各种需要<span style="color:#FF0000">安装</span>的电力、钢结构加工工程，电梯工程、消防安装、铝合金门窗安装工程、入口铁门、消防门、拱门制作安装工程等。工作台、梯子的装设工程，管线敷设，以及绝缘、刷油、保温所需的费用。</td></tr>
+    <tr><td class="cat2">装修工程</td><td class="explain">包含办公场所装修、改造和翻新，包含但不限于工程、水电改造、空调及消防改造、空气治理、开荒保洁等；家具更换购买，格局改造、办公室VR建设费用等一系列费用。</td></tr>
+    <tr><td class="cat2">机械设备</td><td class="explain">用于生产、服务等各类<span style="color:#FF0000">设备</span>，包括机械设备的购置、运输、安装、拆卸、维修和保养等费用。</td></tr>
+    <tr><td class="cat2">工程材料</td><td class="explain">指用于建筑和安装工程、装修工程所需的各种<span style="color:#FF0000">甲供</span>材料费用，包括主要材料和辅助材料。主要材料是指构成建筑物或建筑物的基础、承重构件、非承重构件和屋面的材料，如钢材、水泥、混凝土、木材、砖瓦、砂石等。辅助材料是指为施工所必需的，但比重较小的一些材料，如周转材料（钢管、模板等）、其他材料（涂料、油漆等）。</td></tr>
+    <tr><td class="cat2">设计、咨询、测绘</td><td class="explain">对项目发生<span style="color:#FF0000">设计</span>、咨询、测绘所发生的费用。</td></tr>
+    <tr><td class="cat2">技术服务</td><td class="explain">是指企业或个人为某个特定项目提供技术支持或服务所收取的费用。</td></tr>
+    <tr><td class="cat2">测试、检测、实验</td><td class="explain">进行产品或项目的测试、检测和实验过程中产生的费用。包括各种测试活动的费用、设备维护费用、测试材料和试剂的购买费用以及其他相关费用。</td></tr>
+    <tr><td class="cat2">系统软件</td><td class="explain">指开发或购买系统软件所发生的费用。包含硬件费用（如服务器、存储设备、网络设备等），系统软件开发等。</td></tr>
+    <tr><td class="cat2">运输工具</td><td class="explain">指为项目活动所持有的各种运输工具，如汽车、货车、列车、船舶等。</td></tr>
+    <tr><td class="cat2">办公设备</td><td class="explain">未达固定资产标准的有形资产购置，例如打印机、电脑、微波炉、饮水机等采购）包含①网络设备费用：机房设备、会议投影、会议系统及电话设备等；②家具设备费用：办公家具、电器设备等；③餐厅设备：餐厅家具、厨房设备及其它软装等。</td></tr>
+    <tr><td class="cat2">股权投资</td><td class="explain">指通过投资取得被投资单位的股权/股份，如：股票、股权等。</td></tr>
+    <tr><td class="cat2">债权投资</td><td class="explain">指通过投资取得被投资单位的债权，如：国债、地方债、企业债券等。</td></tr>
+    <tr><td class="cat2">其他金融工具投资</td><td class="explain">指通过投资取得的非股权、非债权类投资，如：基金、结构性存款、理财产品等。</td></tr>
+    <tr><td class="cat2">市场营销成本</td><td class="explain">指市场营销项目发生的购买原材料、商品、渠道建设、渠道拓展、广告宣传、产品促销、销售折价、销售返利等费用。</td></tr>
+    <tr><td class="cat2">其他</td><td class="explain">指其他的项目成本。</td></tr>
+    <tr><td rowspan="13" class="cat1">项目费用</td><td class="cat2">项目管理费</td><td class="explain">是指组织和管理项目活动而发生的各种费用。</td></tr>
+    <tr><td class="cat2">人工费</td><td class="explain"><span style="color:#FF0000">项目团队成员</span>工资、社会保险费、住房公积金、福利费<span style="color:#FF0000">；不含</span>项目奖<span style="color:#FF0000">。</span></td></tr>
+    <tr><td class="cat2">项目奖</td><td class="explain"><span style="color:#FF0000">项目团队成员的奖金。</span></td></tr>
+    <tr><td class="cat2">办公费</td><td class="explain">包含办公用品费用、员工交通费（除差旅、会务、探亲、招待、培训）、办公耗材（例如笔记本、碳粉、墨盒等）、开办、工具书及书报费、印刷费、搬家费、办公坏境费（例如办公室VR建设，办公摆件物件）、饮水费、自购笔记本。</td></tr>
+    <tr><td class="cat2">差旅费</td><td class="explain">公司员工出差期间因办理项目公务而产生的交通费 、住宿费、伙食费和其他杂费等各项费用，其中：
+   ①交通费：指员工因公到常驻地以外地区出差乘坐火车、轮船、飞机等交通工具所发生的费用，及员工因公出差期间市内活动发生的交通费用。
+   ②住宿费：指员工因公出差期间入住酒店发生的费用。
+   ③伙食费：指员工因公出差期间的伙食费。
+   ④其他费用：指员工因公出差期间发生的其他合理费用等。</td></tr>
+    <tr><td class="cat2">培训费</td><td class="explain">员工<span style="color:#FF0000">项目</span>培训相关支出，包括租用培训场所费用、培训资料费、交通费、茶水费、餐费、住宿费，外聘讲师费，课程费等。</td></tr>
+    <tr><td class="cat2">公共事务费</td><td class="explain">是指公司日常工作中发生的、开展项目活动需要而产生的接待费用。包含: ①宴请、娱乐或接待客人工作餐的开支；②赠送客人纪念品、礼品的开支；③员工和外部人员到旅游景点参观，门票费、交通费、各类杂费开支；④外部业务关系人员到公司出差、调研、做项目，发生的差旅费、住宿费、交通费等。</td></tr>
+    <tr><td class="cat2">租赁费</td><td class="explain">包含①<span style="color:#FF0000">项目</span>办公场所租赁费：办公场所的租金费用（含税）、外租食堂场地、仓库场地、档案室场地费用；②宿舍租赁：指销售部门员工宿舍的租赁费用，包含公摊能耗费、外租食堂场所的物业费等。不含车辆租赁。</td></tr>
+    <tr><td class="cat2">会议费</td><td class="explain">指为执行项目工作或开展项目业务活动所召开的正式会议(可提供会议审批文件、会议通知、会议纪要、实际参会人员签到表或定点会议场所等会议服务单位提供的费用原始明细单据、电子结算单等凭证)所发生的会议场地费、投影使用费、餐饮费、茶点费、交通费、住宿费等一切合理费用。</td></tr>
+    <tr><td class="cat2">折旧与摊销</td><td class="explain">使用的固定资产折旧和无形资产摊销、使用权资产折旧</td></tr>
+    <tr><td class="cat2">财务费用</td><td class="explain">指企业为筹集项目所需资金等而发生的费用。包含利息收入、利息支出、手续费等。</td></tr>
+    <tr><td class="cat2">税费</td><td class="explain">是指公司为<span style="color:#FF0000">项目</span>缴纳的各项税费。</td></tr>
+    <tr><td class="cat2">其他</td><td class="explain">其他项目管理费。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
