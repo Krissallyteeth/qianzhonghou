@@ -192,6 +192,28 @@ col.c5 { width: 3%; }
 col.c6 { width: 15%; }
 col.c7 { width: 22%; }
 col.c8 { width: 40%; }
+
+/* Smooth touch scrolling for wide table on mobile */
+.tab-content { -webkit-overflow-scrolling: touch; }
+
+/* Responsive: scale down on tablets/phones (wide 8-col table stays horizontally scrollable) */
+@media (max-width: 768px) {
+  body { padding: 12px 8px; }
+  h1.page-title { font-size: 16px; margin-bottom: 12px; }
+  .tab-btn { padding: 9px 18px; font-size: 13px; }
+  table { font-size: 10.5px; }
+  .row-title { font-size: 14px; }
+  .row-header { font-size: 12px; }
+}
+@media (max-width: 480px) {
+  body { padding: 8px 4px; }
+  h1.page-title { font-size: 14px; letter-spacing: 0; }
+  .tabs { gap: 2px; }
+  .tab-btn { padding: 8px 12px; font-size: 12px; }
+  table { font-size: 9.5px; }
+  td { padding: 3px 4px; }
+  .row-title { font-size: 13px; }
+}
 </style>
 </head>
 <body>
